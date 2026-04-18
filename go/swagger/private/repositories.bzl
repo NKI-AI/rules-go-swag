@@ -15,7 +15,11 @@ def _swag_repository_tools_impl(ctx):
     
     if ctx.os.name == "linux":
         if ctx.os.arch == "amd64" or ctx.os.arch == "x86_64":
-            swag_url = base_url + "Linux_amd64.tar.gz"
+            # swaggo renamed the linux x86_64 release asset starting with
+            # v1.16.6: it is published as `Linux_x86_64.tar.gz`, not
+            # `Linux_amd64.tar.gz`. Match the published name so the
+            # download succeeds.
+            swag_url = base_url + "Linux_x86_64.tar.gz"
         elif ctx.os.arch == "arm64" or ctx.os.arch == "aarch64":
             swag_url = base_url + "Linux_arm64.tar.gz"
         else:
